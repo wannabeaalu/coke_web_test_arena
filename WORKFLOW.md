@@ -4,6 +4,19 @@ Updated 30 September 2026. General across models and projects.
 
 **Discuss and finalize → save the agreed task → build when asked → user tests locally → fix or merge.**
 
+## Workflow roles
+
+**Designer → Thinker → Worker → Verifier**
+
+- **Designer:** clarify the user-facing result, requirements, and success criteria.
+- **Thinker:** turn the agreed requirements into an execution-ready plan, including decisions and evidence needed.
+- **Worker:** implement the saved plan when authorized and maintain task context.
+- **Verifier:** check the result against the success criteria and report evidence, failures, and what still needs local testing.
+
+These are responsibilities; one agent may cover multiple roles. Independent review follows the helper-agent guidance below.
+
+See [GITFLOW.md](GITFLOW.md) for branch strategy, branch initialization, and Git permissions.
+
 ## One-time setup
 
 Put WORKFLOW.md and GITFLOW.md in the project root, commit, and push to the integration branch (normally dev). Keep existing project instructions. No setup chat, setup branch, or manually prepared STATE.md is needed.
@@ -17,7 +30,7 @@ For a new task, connect the repo and dev: “Read WORKFLOW.md and follow it. I w
 1. Read GITFLOW.md, locate the existing project instructions (AGENTS.md, agent.md, CLAUDE.md, or equivalent), and read STATE.md if present. Read applicable directory-level instructions when working there.
 2. Inspect the actual branch and relevant code. Preserve useful project facts. This user-adopted workflow replaces conflicting legacy process rules such as Claude-only tooling or no task-branch commits; it does not discard unrelated project constraints or override higher-priority system rules. Update conflicting legacy process text on the task branch and briefly note it.
 3. Create STATE.md when work starts if missing. If no project instructions exist, create a short AGENTS.md with verified facts and a pointer here. Do not duplicate an existing file because its name differs. For an empty project, establish requirements before inventing commands or structure.
-4. New task: branch from current dev. Continuation: resume the saved task branch, not a new branch from dev. If dev is absent or the intended base is unclear, resolve that specific question once.
+4. Follow GITFLOW.md for branch checks, initialization, and selection. For continuation, use STATE.md to identify the saved task branch.
 
 ## Phase 1 — discuss and finalize
 
@@ -54,7 +67,7 @@ The user runs the supplied commands and reports the result. This is the ordinary
 - **Failed:** investigate the supplied evidence, fix the same task branch, repeat affected checks, update state, and push. Give update/run commands again. Keep the same PR open.
 - **Worked:** record acceptance and provide GITFLOW.md merge/cleanup commands for the user to run. Do not merge yourself. If newer dev changes require integration, resolve on the task branch and retest the changed result first.
 
-The user merges into dev. Releasing dev to main is separate. New work after merge starts from updated dev; unfinished work resumes on its task branch.
+After acceptance, follow GITFLOW.md for integration, release, cleanup, and the next task branch.
 
 ## Automatic context management
 
@@ -134,4 +147,4 @@ Sources: [credits](https://help.arena.ai/articles/5476762589-credit-sytem), [rat
 
 Explain the evidence and next needed action. After three unsuccessful attempts at the same blocker, checkpoint and report rather than retrying indefinitely. Safe incomplete task-branch checkpoints are authorized and must be marked incomplete. Abrupt credit/context loss may prevent a final save; never promise recovery of unpushed work.
 
-Throwaway draft/ exploration is optional when a specific uncertainty warrants it and the user agrees. It is not automatic for UI or multi-file changes. draft/ branches are never merged.
+Throwaway exploration is optional when a specific uncertainty warrants it and the user agrees. It is not automatic for UI or multi-file changes. Follow GITFLOW.md for experiment-branch handling.
