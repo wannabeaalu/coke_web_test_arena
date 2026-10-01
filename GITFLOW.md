@@ -42,6 +42,21 @@ git push -u origin dev
 
 If main exists only locally, use git switch -c dev main instead. Creating and publishing dev is the sole one-time exception to the prohibition on workers pushing directly to dev; later changes reach dev through task integration.
 
+### GitHub main protection — one-time initialization
+
+For a GitHub repository, check whether `main` is already protected before starting the first task. Do not weaken, replace, or duplicate an existing protection rule or ruleset.
+
+If GitHub CLI/API access is available and authenticated with sufficient repository-administration permission, configure protection automatically when no equivalent protection exists. The minimum required policy is:
+
+- changes to `main` must be merged through a Pull Request;
+- zero approving reviews are acceptable for a solo personal project unless the repository already requires more;
+- direct pushes to `main` are not part of this workflow;
+- force pushes and branch deletion remain disallowed.
+
+Prefer the repository's existing ruleset/protection mechanism. Verify the resulting rule after creation instead of assuming the API call succeeded.
+
+If GitHub access, authentication, plan support, or required permissions are unavailable, do not block normal task work. Report one explicit remaining manual setup item: protect `main` on GitHub so changes require a Pull Request. Do not repeatedly ask about it during later tasks.
+
 Check the intended feature/<name>, fix/<name>, or chore/<name> branch before creating it. Resume an existing task branch for continuation (track its origin branch if only the remote exists); do not recreate it or overwrite its history. For a new task whose branch is absent, create it from current origin/dev, for example git switch -c feature/change-font-inter origin/dev.
 
 ## Worker delivery
